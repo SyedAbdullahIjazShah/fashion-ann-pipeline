@@ -1,12 +1,28 @@
 import os
 import yaml
 import numpy as np
-from sklearn.model_selection import train_test_split
 
 def load_params():
     with open("params.yaml", "r", encoding="utf-8") as f:
         params = yaml.safe_load(f)
     return params["preprocess"]
+
+def stratified_train_val_split(x, y, test_size, seed):
+    try:
+        from sklearn.model_selection import train_test_split
+        return train_test_split(x, y, test_size=test_size, random_state=seed, stratify=y)
+    except Exception:
+        np.random.seed(seed)
+        train_idx, val_idx = [], []
+        for cls in np.unique(y):
+            cls_indices = np.where(y == cls)[0]
+            shuffled = np.random.permutation(cls_indices)
+            split_point = int(len(shuffled) * (1 - test_size))
+            train_idx.extend(shuffled[:split_point])
+            val_idx.extend(shuffled[split_point:])
+        np.random.shuffle(train_idx)
+        np.random.shuffle(val_idx)
+        return x[train_idx], x[val_idx], y[train_idx], y[val_idx]
 
 def main():
     print("=== [Stage 2: Preprocess Data] ===")
@@ -27,12 +43,11 @@ def main():
     x_test_norm = x_test_raw.astype("float32") / 255.0
 
     print(f"Splitting validation set (val_size={val_size}, seed={seed})...")
-    x_train, x_val, y_train, y_val = train_test_split(
+    x_train, x_val, y_train, y_val = stratified_train_val_split(
         x_train_norm,
         y_train_raw,
         test_size=val_size,
-        random_state=seed,
-        stratify=y_train_raw
+        seed=seed
     )
 
     print(f"Final splits -> Train: {x_train.shape[0]}, Val: {x_val.shape[0]}, Test: {x_test_norm.shape[0]}")
