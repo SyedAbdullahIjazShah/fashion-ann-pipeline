@@ -1,6 +1,6 @@
 # Fashion-MNIST ANN Pipeline with Git & DVC
 
-An end-to-end reproducible Machine Learning pipeline utilizing **TensorFlow**, **Git**, and **Data Version Control (DVC)** with **Google Drive** as remote artifact storage.
+An end-to-end reproducible Machine Learning pipeline utilizing **TensorFlow**, **Git**, and **Data Version Control (DVC)** with **Google Drive (GSuite/Personal)** as remote artifact storage.
 
 ## Objectives
 - **Model:** Fully-connected Artificial Neural Network (ANN) classifying 70,000 $28 \times 28$ grayscale Fashion-MNIST images into 10 clothing categories.
