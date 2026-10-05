@@ -38,9 +38,11 @@ def main():
     x_test_raw = np.load("data/raw/x_test.npy")
     y_test_raw = np.load("data/raw/y_test.npy")
 
-    print("Normalizing pixel values to [0, 1] range...")
-    x_train_norm = x_train_raw.astype("float32") / 255.0
-    x_test_norm = x_test_raw.astype("float32") / 255.0
+    print("Normalizing pixel values using Z-score standardization (zero-mean, unit-variance)...")
+    mean_val = np.mean(x_train_raw)
+    std_val = np.std(x_train_raw) + 1e-7
+    x_train_norm = (x_train_raw.astype("float32") - mean_val) / std_val
+    x_test_norm = (x_test_raw.astype("float32") - mean_val) / std_val
 
     print(f"Splitting validation set (val_size={val_size}, seed={seed})...")
     x_train, x_val, y_train, y_val = stratified_train_val_split(
