@@ -1,0 +1,20 @@
+# Python & Environment
+venv/
+.env/
+__pycache__/
+*.pyc
+
+# DVC local storage & cache
+.dvc/cache
+.dvc/tmp
+
+# Data & Model payloads (managed by DVC, not Git)
+/data/raw/
+/data/processed/
+/models/*.h5
+/models/*.keras
+
+# Credentials & OAuth tokens
+gdrive-user-credentials.json
+.dvc/tmp/gdrive-user-credentials.json
+client_secrets*.json
