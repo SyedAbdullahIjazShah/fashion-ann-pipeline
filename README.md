@@ -1,5 +1,10 @@
 # Fashion-MNIST ANN Pipeline with Git & DVC
 
+Student: Syed Abdullah Ijaz Shah (23L-1000)
+
+GitHub (create this repo if it is missing, then push):  
+https://github.com/SyedAbdullahIjazShah/fashion-ann-pipeline
+
 An end-to-end reproducible Machine Learning pipeline utilizing **TensorFlow**, **Git**, and **Data Version Control (DVC)** with **Google Drive (GSuite/Personal)** as remote artifact storage.
 
 ## Objectives
